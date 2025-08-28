@@ -1,6 +1,6 @@
 "use client";
 import React, { use, useEffect, useState } from "react";
-import SimliOpenAI from "./SimliOpenAI";
+import SimliGemini from "./SimliGemini";
 import DottedFace from "./Components/DottedFace";
 import SimliHeaderLogo from "./Components/Logo";
 import Navbar from "./Components/Navbar";
@@ -9,8 +9,7 @@ import GitHubLogo from "@/media/github-mark-white.svg";
 
 interface avatarSettings {
   name: string;
-  openai_voice: "alloy" | "ash" | "ballad" | "coral" | "echo" | "sage" | "shimmer" | "verse";
-  openai_model: string;
+  elevenlabs_voice_id: string;
   simli_faceid: string;
   initialPrompt: string;
 }
@@ -18,9 +17,8 @@ interface avatarSettings {
 // Customize your avatar here
 const avatar: avatarSettings = {
   name: "Frank",
-  openai_voice: "echo",
-  openai_model: "gpt-4o-mini-realtime-preview-2024-12-17", // Use "gpt-4o-mini-realtime-preview-2024-12-17" for cheaper and faster responses
-  simli_faceid: "6ebf0aa7-6fed-443d-a4c6-fd1e3080b215",
+  elevenlabs_voice_id: "pNInz6obpgDQGcFmaJgB", // Adam voice - replace with your preferred Eleven Labs voice ID
+  simli_faceid: "d8f9306d-7de9-45f6-80c5-b65314b7ed09",
   initialPrompt:
     "You are a helpful AI assistant named Frank. You are friendly and concise in your responses. Your task is to help users with any questions they might have. Your answers are short and to the point, don't give long answers be brief and straightforward.",
 };
@@ -50,15 +48,14 @@ const Demo: React.FC = () => {
           className="font-bold cursor-pointer mb-8 text-xl leading-8"
         >
           <Image className="w-[20px] inline mr-2" src={GitHubLogo} alt="" />
-          create-simli-app (OpenAI)
+          create-simli-app (Gemini + ElevenLabs)
         </text>
       </div>
       <div className="flex flex-col items-center gap-6 bg-effect15White p-6 pb-[40px] rounded-xl w-full">
         <div>
           {showDottedFace && <DottedFace />}
-          <SimliOpenAI
-            openai_voice={avatar.openai_voice}
-            openai_model={avatar.openai_model}
+          <SimliGemini
+            elevenlabs_voice_id={avatar.elevenlabs_voice_id}
             simli_faceid={avatar.simli_faceid}
             initialPrompt={avatar.initialPrompt}
             onStart={onStart}
@@ -76,14 +73,14 @@ const Demo: React.FC = () => {
         </span>
         <ul className="list-decimal list-inside max-w-[350px] ml-[6px] mt-2">
           <li className="mb-1">
-            Fill in your OpenAI and Simli API keys in .env file.
+            Fill in your Google AI API key (for Gemini 2.0 Flash) and Eleven Labs API key in .env file.
           </li>
           <li className="mb-1">
-            Test out the interaction and have a talk with the OpenAI-powered,
-            Simli-visualized avatar.
+            Test out the interaction and have a talk with the Gemini-powered,
+            ElevenLabs-voiced, Simli-visualized avatar.
           </li>
           <li className="mb-1">
-            You can replace the avatar's face and prompt with your own. Do this
+            You can replace the avatar's face, voice, and prompt with your own. Do this
             by editing <code>app/page.tsx</code>.
           </li>
         </ul>
